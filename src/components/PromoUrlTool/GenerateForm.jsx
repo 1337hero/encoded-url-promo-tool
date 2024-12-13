@@ -25,7 +25,7 @@ export const GenerateForm = ({
             <span>last_name: "TESTING o7"</span>
           </div>
           <div className="flex justify-between items-center mb-4">
-            <span>email: bobby@techguys.com</span>
+            <span>email: someUser07@api7testing.com</span>
           </div>
         </div>
         <div>

@@ -1,6 +1,10 @@
 # Promotional URL Tool
 
-A web application built with React for encoding and decoding promotional URLs with encrypted parameters. This tool allows users to generate encoded URLs with customer information and decode existing promotional URLs securely.
+Working for a client with a "Return to Cart" promotional offer that is encoded using AES-CBC encryption. These are generated in Hubspot. While working on the project, I needed a quick and effective way to decode and validate test URL's and even create my own. Thus this tool now exists.
+
+This tool allows users to generate encoded URLs with customer information and decode existing promotional URLs securely.
+
+It's setup for my needs in terms of how we read the URL's and Generate them based on our params, but anyone could modify this code. Pretty standard stuff.
 
 ## Features
 
@@ -18,12 +22,6 @@ A web application built with React for encoding and decoding promotional URLs wi
 - shadcn/ui Components
 - Web Crypto API
 
-## Prerequisites
-
-Before you begin, ensure you have installed:
-- Node.js (Latest LTS version recommended)
-- npm or yarn package manager
-
 ## Installation
 
 1. Clone the repository:
@@ -33,10 +31,16 @@ cd encoded-promo-tool
 ```
 
 2. Install dependencies:
+This project was primarily setup to use the Bun runtime which is an alternative to Node but fully compatible with it. 
+
+Learn more here: https://bun.sh/
+
+```bash
+bun install
+```
+**OR**
 ```bash
 npm install
-# or
-yarn install
 ```
 
 3. Create environment file:
@@ -55,9 +59,9 @@ VITE_ENCRYPTION_KEY=your-encryption-key-here
 To start the development server:
 
 ```bash
-npm run dev
+bun run dev
 # or
-yarn dev
+npm run dev
 ```
 
 The application will be available at `http://localhost:3001`
@@ -67,9 +71,9 @@ The application will be available at `http://localhost:3001`
 To create a production build:
 
 ```bash
-npm run build
+bun run build
 # or
-yarn build
+npm build
 ```
 
 The built files will be in the `dist` directory.
