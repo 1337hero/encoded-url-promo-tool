@@ -1,0 +1,36 @@
+# dependencies
+node_modules
+
+#production
+dist
+dist-ssr
+docs
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+#cache
+.eslintcache
+
+# local env files
+# do not commit any .env files to git
+.env
+.env*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+.repomix.config.json
+repomix.config.json
+repo-output.txt
+detailed_changelog.txt
