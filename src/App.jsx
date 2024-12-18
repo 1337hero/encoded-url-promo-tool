@@ -1,10 +1,7 @@
-import PromoUrlTool from '@/components/PromoUrlTool/index'
+import PromoUrlTool from "@/components/PromoUrlTool";
 
 const App = () => {
+  return <PromoUrlTool />;
+};
 
-  return (
-    <PromoUrlTool />
-  )
-}
-
-export default App
+export default App;
