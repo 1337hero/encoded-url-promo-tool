@@ -26,10 +26,16 @@ const SERVICE_OPTIONS = [
   { value: "SURF 500", label: "SURF 500" },
 ];
 
+const TIME_OPTIONS = [
+  { value: "30min", label: "30 Minutes", minutes: 30 },
+  { value: "24hr", label: "24 Hours", minutes: 24 * 60 },
+  { value: "1week", label: "1 Week", minutes: 7 * 24 * 60 },
+];
+
 const FIELD_GROUPS = {
   address: ["street", "city", "state", "zip"],
   contact: ["firstname", "lastname", "email", "phone"],
-  promo: ["returnEndDate", "returnPromoCode", "numEeros"],
+  promo: ["returnPromoCode", "numEeros"], // Removed returnEndDate as it's now handled separately
 };
 
 const GenerateForm = ({ formData, onFormChange, onGenerate, error, generatedUrl }) => {
@@ -69,6 +75,22 @@ const GenerateForm = ({ formData, onFormChange, onGenerate, error, generatedUrl 
           value: value || "",
         },
       });
+    },
+    [onFormChange]
+  );
+
+  const handleTimeSelect = useCallback(
+    (value) => {
+      const selectedOption = TIME_OPTIONS.find(option => option.value === value);
+      if (selectedOption) {
+        const futureDate = new Date(Date.now() + selectedOption.minutes * 60 * 1000);
+        onFormChange({
+          target: {
+            name: "returnEndDate",
+            value: futureDate.getTime().toString(),
+          },
+        });
+      }
     },
     [onFormChange]
   );
@@ -141,6 +163,37 @@ const GenerateForm = ({ formData, onFormChange, onGenerate, error, generatedUrl 
     [formData.serviceName, handleServiceSelect]
   );
 
+  const renderTimeSelect = useMemo(
+    () => (
+      <div>
+        <Label htmlFor="returnEndDate">Return End Date</Label>
+        <Select 
+          value={TIME_OPTIONS.find(opt => 
+            formData.returnEndDate === new Date(Date.now() + opt.minutes * 60 * 1000).getTime().toString()
+          )?.value} 
+          onValueChange={handleTimeSelect}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Select expiration time..." />
+          </SelectTrigger>
+          <SelectContent>
+            {TIME_OPTIONS.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        {formData.returnEndDate && (
+          <div className="mt-1 text-sm text-gray-500">
+            Expires: {new Date(parseInt(formData.returnEndDate)).toLocaleString()}
+          </div>
+        )}
+      </div>
+    ),
+    [formData.returnEndDate, handleTimeSelect]
+  );
+
   // Return/Render
   return (
     <div className="space-y-4">
@@ -159,6 +212,7 @@ const GenerateForm = ({ formData, onFormChange, onGenerate, error, generatedUrl 
         <h3 className="text-lg font-semibold">Promotional Details</h3>
         <div className="grid grid-cols-2 gap-4">
           {renderServiceSelect}
+          {renderTimeSelect}
           {renderFields(FIELD_GROUPS.promo)}
         </div>
       </div>
