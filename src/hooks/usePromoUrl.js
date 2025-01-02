@@ -47,7 +47,7 @@ export const usePromoUrl = () => {
       const encryptedHex = uint8ArrayToHex(new Uint8Array(encryptedData));
       const ivHex = uint8ArrayToHex(iv);
 
-      return `${window.location.origin}?p=${ivHex}:${encryptedHex}`;
+      return `?p=${ivHex}:${encryptedHex}`;
     } catch (error) {
       throw new Error("Failed to create promo URL");
     }

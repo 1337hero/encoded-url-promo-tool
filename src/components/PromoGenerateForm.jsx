@@ -24,9 +24,11 @@ const SERVICE_OPTIONS = [
   { value: "SURF 2 Gig", label: "SURF 2 Gig" },
   { value: "SURF 1 Gig", label: "SURF 1 Gig" },
   { value: "SURF 500", label: "SURF 500" },
+  { value: "null", label: "No Service" },
 ];
 
 const TIME_OPTIONS = [
+  { value: "Expired", label: "Expired", minutes: -1 },
   { value: "30min", label: "30 Minutes", minutes: 30 },
   { value: "24hr", label: "24 Hours", minutes: 24 * 60 },
   { value: "1week", label: "1 Week", minutes: 7 * 24 * 60 },
@@ -35,7 +37,7 @@ const TIME_OPTIONS = [
 const FIELD_GROUPS = {
   address: ["street", "city", "state", "zip"],
   contact: ["firstname", "lastname", "email", "phone"],
-  promo: ["returnPromoCode", "numEeros"], // Removed returnEndDate as it's now handled separately
+  promo: ["returnPromoCode", "numEeros"],
 };
 
 const GenerateForm = ({ formData, onFormChange, onGenerate, error, generatedUrl }) => {
@@ -221,7 +223,7 @@ const GenerateForm = ({ formData, onFormChange, onGenerate, error, generatedUrl 
       {error && <div className="mt-2 text-red-500">{error}</div>}
       {generatedUrl && (
         <div className="mt-4">
-          <h3 className="mb-2 text-lg font-semibold">Generated URL:</h3>
+          <h3 className="mb-2 text-lg font-semibold">Generated Promo String:</h3>
           <div className="break-all rounded bg-gray-100 p-4">{generatedUrl}</div>
         </div>
       )}
